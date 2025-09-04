@@ -1,0 +1,18 @@
+html {
+	
+  font-size: 10px; /* px signifie 'pixels': la taille de base pour la police est désormais 10 pixels de haut  */
+  font-family:
+    "Open Sans", sans-serif; /* cela devrait être le reste du résultat obtenu à partir de Google fonts */
+}
+h1 {
+	background-color: #00539f;
+  font-size: 60px;
+  text-align: center;
+}
+
+p,
+li {
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 1px;
+}
