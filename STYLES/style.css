@@ -1,16 +1,16 @@
 /* ---------- Base ---------- */
 html {
 	font-size: 62.5%;
-	
+	/* 1rem = 10px */
 }
 
 body {
-	 
-  background: #000;
-  color: #33ff66;
-  font-family: "VT323", monospace;
-  text-shadow: 0 0 2px #33ff66;
-
+	background: #000;
+	color: #33ff66;
+	font-family: "VT323", monospace;
+	text-shadow: 0 0 2px #33ff66;
+	margin: 0;
+	padding: 0;
 }
 
 /* Container */
@@ -29,17 +29,37 @@ header {
 h1 {
 	font-size: 4.8rem;
 	font-weight: 700;
-	color: #198754;
-	/* Vert principal */
-	margin-bottom: 1rem;
-	border-bottom: 3px solid #198754;
+	color: #33ff66;
+	border-bottom: 2px solid #33ff66;
 	display: inline-block;
 	padding-bottom: 0.5rem;
+	text-shadow: 0 0 4px #33ff66;
 }
 
 .intro {
-	color: #555;
+	color: #aaa;
+	/* gris clair au lieu de #555 */
 	font-size: 1.8rem;
+}
+
+/* ---------- Navigation ---------- */
+nav.menu {
+	background: #111;
+	border-bottom: 1px solid #33ff66;
+	text-align: left;
+	padding: 0.8rem;
+}
+
+nav.menu a {
+	color: #33ff66;
+	text-decoration: none;
+	margin: 0 1rem;
+	font-size: 1.6rem;
+	transition: all 0.2s ease;
+}
+
+nav.menu a:hover {
+	text-shadow: 0 0 6px #33ff66;
 }
 
 /* ---------- Grid ---------- */
@@ -55,30 +75,32 @@ h1 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #f5f7f6;
-	border: 1px solid #ddd;
-	border-radius: 0.8rem;
-	padding: 3rem 2rem;
+	background-color: #111;
+	border: 1px solid #33ff66;
+	border-radius: 0.5rem;
+	padding: 2.5rem 1.5rem;
 	font-size: 1.8rem;
 	font-weight: 600;
 	text-decoration: none;
-	color: #198754;
+	color: #33ff66;
+	text-shadow: 0 0 2px #33ff66;
 	transition: all 0.2s ease;
 }
 
 .card:hover {
-	background-color: #198754;
-	color: #fff;
-	border-color: #198754;
+	background-color: #33ff66;
+	color: #000;
+	text-shadow: none;
 	transform: translateY(-4px);
+	box-shadow: 0 0 10px #33ff66;
 }
 
 /* ---------- Footer ---------- */
 footer {
 	text-align: center;
 	font-size: 1.4rem;
-	color: #555;
+	color: #aaa;
 	padding: 2rem;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #33ff66;
 	margin-top: 4rem;
 }
