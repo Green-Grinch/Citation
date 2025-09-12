@@ -59,7 +59,11 @@ nav.menu a {
 }
 
 nav.menu a:hover {
-	text-shadow: 0 0 6px #33ff66;
+	background-color: #33ff66;
+	color: #000;
+	text-shadow: none;
+	transform: translateY(-4px);
+	box-shadow: 0 0 10px #33ff66;
 }
 
 /* ---------- Grid ---------- */
