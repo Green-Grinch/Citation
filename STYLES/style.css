@@ -61,7 +61,6 @@ nav.menu a {
 nav.menu a:hover {
 	background-color: #33ff66;
 	color: #000;
-	text-shadow: none;
 	transform: translateY(-4px);
 	box-shadow: 0 0 10px #33ff66;
 }
@@ -108,3 +107,7 @@ footer {
 	border-top: 1px solid #33ff66;
 	margin-top: 4rem;
 }
+
+
+/* PAGES */
+/* xxxxxxx */
