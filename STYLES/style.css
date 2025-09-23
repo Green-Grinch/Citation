@@ -107,7 +107,19 @@ footer {
 	border-top: 1px solid #33ff66;
 	margin-top: 4rem;
 }
+/* Typewritter */
+.typewriter {
+	font-size: 2rem;
+	color: #33ff66;
+	text-shadow: 0 0 2px #33ff66;
+}
 
-
-/* PAGES */
-/* xxxxxxx */
+.typing-char {
+	display: inline-block;
+	background: #33ff66;
+	color: #000;
+	padding: 0 4px;
+	border-radius: 2px;
+	box-shadow: 0 0 12px #33ff66;
+	transition: all 0.2s ease;
+}

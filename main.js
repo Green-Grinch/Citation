@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				setTimeout(() => {
 					span.classList.remove("typing-char");
-				}, 150);
+				}, 15);
 
 				i++;
 				setTimeout(typing, speed);
@@ -33,6 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.querySelectorAll(".typewriter").forEach(el => {
 		const text = el.getAttribute("data-text");
 		el.innerHTML = "";
-		typeWriter(el, text, 80);
+		typeWriter(el, text, 23);
 	});
 });
