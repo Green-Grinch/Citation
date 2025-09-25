@@ -123,3 +123,48 @@ footer {
 	box-shadow: 0 0 12px #33ff66;
 	transition: all 0.2s ease;
 }
+
+/* CURSEUR */
+/* masque le curseur natif */
+body {
+	cursor: none;
+}
+
+/* curseur par défaut = rond fluo, sans transition sur left/top */
+.cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #33ff66;
+	box-shadow: 0 0 8px #33ff66, 0 0 16px #33ff66;
+	pointer-events: none;
+	mix-blend-mode: difference;
+	transform: translate(-50%, -50%);
+	/* ne pas animer left/top -> pas de “latence” */
+	transition:
+		width .18s ease,
+		height .18s ease,
+		border-radius .18s ease,
+		background .18s ease;
+		box-shadow .18s ease,
+		border-color .18s ease;
+	z-index: 9999;
+}
+
+/* petit pointeur quand on est au-dessus du menu */
+.cursor.small {
+	width: 6px;
+	height: 6px;
+	box-shadow: 0 0 3px #33ff66, 0 0 6px #33ff66;
+}
+
+/* mode "rectangle qui encadre" */
+.cursor.rect {
+	border-radius: 4px;
+	background: transparent;
+	border: 2px solid #33ff66;
+	box-shadow: 0 0 12px #33ff66;
+}
