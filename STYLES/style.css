@@ -46,30 +46,44 @@ h1 {
 
 /* ---------- Navigation ---------- */
 nav.menu {
+	cursor: none !important;
 	background: #111;
 	border-bottom: 1px solid #33ff66;
 	text-align: left;
 	padding: 0.8rem;
+	cursor: none !important;
 }
 
-nav.menu,
-nav.menu * {
-	cursor: none !important;
-	/* pas de pointeur système dans le menu */
+
+/* MENU DE NAVIGATION */
+
+nav.menu a .desc {
+	position: absolute;
+	left: 0;
+	top: 100%;
+	font-size: 1.2rem;
+	color: #000;
+	text-shadow: none;
+	pointer-events: none;
+	transition: color .2s ease;
 }
+
+
+	
 
 nav.menu a {
+	position: relative;
+	display: inline-block;
 	color: #33ff66;
 	text-decoration: none;
 	margin: 0 1rem;
 	font-size: 1.6rem;
 	transition: color .2s ease, text-shadow .2s ease;
 	display: flex;
-		justify-content: left;
+	justify-content: left;
 	
 }
 
-/* Lien actif sous le curseur (classe ajoutée par le JS) */
 nav.menu a.is-highlighted {
 	background-color: #33ff66 !important;
 	color: #000 !important;
@@ -79,7 +93,6 @@ nav.menu a.is-highlighted {
 	padding: 0 4px;
 }
 
-/* Neutraliser le hover classique */
 nav.menu a:hover {
 	background: none;
 	box-shadow: none;
