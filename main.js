@@ -1,11 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 	/* ----- MENU ----- */
-	fetch("../menu.html")
-		.then(r => r.text())
-		.then(html => { document.getElementById("menu-container").innerHTML = html; })
-		.catch(err => console.error("Erreur de chargement du menu:", err));
+	const menuTargets = ["../menu.html", "../../menu.html", "menu.html", "/menu.html"];
+	(function loadMenu(i = 0) {
+		if (i >= menuTargets.length) return console.error("Menu introuvable");
+		fetch(menuTargets[i])
+			.then(r => r.ok ? r.text() : Promise.reject())
+			.then(html => {
+				const c = document.getElementById("menu-container");
+				if (c) c.innerHTML = html;
+			})
+			.catch(() => loadMenu(i + 1));
+	})();
 
-	/* ----- TYPEWRITER (lettre lumineuse) ----- */
+	/* ----- TYPEWRITER ----- */
 	function typeWriter(el, text, speed = 23) {
 		let i = 0;
 		(function tick() {
@@ -15,18 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
 				s.classList.add("typing-char");
 				el.appendChild(s);
 				setTimeout(() => s.classList.remove("typing-char"), speed * 1.5);
-				i++; setTimeout(tick, speed);
+				i++;
+				setTimeout(tick, speed);
 			}
 		})();
 	}
+
 	document.querySelectorAll(".typewriter").forEach(el => {
 		const text = el.getAttribute("data-text") || el.textContent;
 		el.innerHTML = "";
 		typeWriter(el, text, 23);
 	});
 
-	/* ----- CURSEUR CUSTOM ----- */
-
+	/* ----- CURSEUR ----- */
 	let cursor = document.querySelector(".cursor");
 	if (!cursor) {
 		cursor = document.createElement("div");
@@ -36,26 +44,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let rectMode = false;
 	const PAD_X = 6, PAD_Y = 4;
+	let lastX = 0, lastY = 0, rafId = null;
+	let activeMenuLink = null;
 
-	// utilitaires pour détecter le caractère/texte sous la souris
-	function nodeFromPoint(x, y) {
-		if (document.caretPositionFromPoint) {
-			const pos = document.caretPositionFromPoint(x, y);
-			return pos && pos.offsetNode;
+	function setCursorRect(rect, mode = "rect") {
+		rectMode = true;
+		cursor.className = "cursor " + mode; // applique .rect ou .word-rect
+		cursor.style.width = (rect.width + PAD_X * 2) + "px";
+		cursor.style.height = (rect.height + PAD_Y * 2) + "px";
+		cursor.style.left = (rect.left + rect.width / 2) + "px";
+		cursor.style.top = (rect.top + rect.height / 2) + "px";
+	}
+
+	function setCursorRound(x, y) {
+		if (rectMode) {
+			rectMode = false;
+			cursor.className = "cursor";
+			cursor.style.width = "16px";
+			cursor.style.height = "16px";
 		}
-		if (document.caretRangeFromPoint) {
-			const range = document.caretRangeFromPoint(x, y);
-			return range && range.startContainer;
+		cursor.style.left = x + "px";
+		cursor.style.top = y + "px";
+	}
+
+	// utilitaires pour les citations
+	const pointInRect = (x, y, r) =>
+		x >= r.left && x <= r.left + r.width && y >= r.top && y <= r.top + r.height;
+
+	const isWordChar = ch => !!ch && /[^\s“”"«»'’.,;:!?()[\]{}]/.test(ch);
+
+	function spanAtPoint(x, y) {
+		const el = document.elementFromPoint(x, y);
+		if (!el) return null;
+		const container = el.closest(".typewriter");
+		if (!container) return null;
+		const spans = container.querySelectorAll("span");
+		for (let s of spans) {
+			const r = s.getBoundingClientRect();
+			if (pointInRect(x, y, r)) return s;
 		}
 		return null;
 	}
-	const isWordChar = ch => !!ch && /[^\s“”"«»'’.,;:!?()[\]{}]/.test(ch);
 
-	// construit un rect englobant tout le mot formé par les <span> du typewriter
 	function wordRectFromSpan(span) {
-		if (!span || span.tagName !== "SPAN") return null;
-		if (!isWordChar(span.textContent)) return null;
-
+		if (!span || span.tagName !== "SPAN" || !isWordChar(span.textContent)) return null;
 		let start = span, end = span;
 		while (start.previousSibling && start.previousSibling.nodeType === 1 &&
 			start.previousSibling.tagName === "SPAN" && isWordChar(start.previousSibling.textContent)) {
@@ -74,76 +106,54 @@ document.addEventListener("DOMContentLoaded", () => {
 		return { left, top, width: right - left, height: bottom - top };
 	}
 
-	function setCursorRect(rect) {
-		rectMode = true;
-		cursor.classList.add("rect");
-		cursor.classList.remove("small");
-		cursor.style.width = (rect.width + PAD_X * 2) + "px";
-		cursor.style.height = (rect.height + PAD_Y * 2) + "px";
-		cursor.style.left = (rect.left + rect.width / 2) + "px";
-		cursor.style.top = (rect.top + rect.height / 2) + "px";
-	}
-	function setCursorRound(x, y) {
-		if (rectMode) {
-			rectMode = false;
-			cursor.classList.remove("rect");
-			cursor.style.width = "16px";
-			cursor.style.height = "16px";
-		}
-		cursor.style.left = x + "px";
-		cursor.style.top = y + "px";
-	}
-
-	// boucle souris principale
-	document.addEventListener("mousemove", e => {
-		const x = e.clientX, y = e.clientY;
+	function processMouse() {
+		rafId = null;
+		const x = lastX, y = lastY;
 		const el = document.elementFromPoint(x, y);
-		const overMenu = el && el.closest("nav.menu");
 
-		// si on est au-dessus du menu
-		if (overMenu) {
-			if (!rectMode) cursor.classList.add("small");
-			setCursorRound(x, y);
+		// ---- Menu ----
+		const menuLink = el && el.closest("nav.menu a");
+		if (menuLink) {
+			if (activeMenuLink !== menuLink) {
+				if (activeMenuLink) activeMenuLink.classList.remove("is-highlighted");
+				activeMenuLink = menuLink;
+				activeMenuLink.classList.add("is-highlighted");
+			}
+			const r = menuLink.getBoundingClientRect();
+			setCursorRect(r, "rect"); // halo
 			return;
-		} else {
-			cursor.classList.remove("small");
+		} else if (activeMenuLink) {
+			activeMenuLink.classList.remove("is-highlighted");
+			activeMenuLink = null;
 		}
 
-		// 1) encadrer un lien (hors menu)
-		const link = el && el.closest("a, .card");
-		if (link) {
-			const r = link.getBoundingClientRect();
-			setCursorRect(r);
-			return;
-		}
-
-		// 2) encadrer un MOT d'une citation
-		const n = nodeFromPoint(x, y);
-		if (n && n.nodeType === 3) {
-			const span = n.parentElement;
-			if (span && span.parentElement && span.parentElement.classList.contains("typewriter")) {
-				const wr = wordRectFromSpan(span);
-				if (wr) {
-					// ⚡ correction anti-blocage : vérifier que la souris est bien dans la zone du mot
-					if (
-						x >= wr.left && x <= wr.left + wr.width &&
-						y >= wr.top && y <= wr.top + wr.height
-					) {
-						setCursorRect(wr);
-						return;
-					}
-				}
+		// ---- Citations ----
+		const s = spanAtPoint(x, y);
+		if (s && s.parentElement && s.parentElement.classList.contains("typewriter")) {
+			const wr = wordRectFromSpan(s);
+			if (wr && pointInRect(x, y, wr)) {
+				setCursorRect(wr, "word-rect"); // contour vert vide
+				return;
 			}
 		}
 
-		// sinon → mode rond libre
+		// ailleurs → rond
 		setCursorRound(x, y);
+	}
+
+	document.addEventListener("mousemove", e => {
+		lastX = e.clientX; lastY = e.clientY;
+		if (!rafId) rafId = requestAnimationFrame(processMouse);
 	});
 
 	document.addEventListener("keydown", e => {
 		if (e.key === "Escape") {
 			rectMode = false;
-			cursor.classList.remove("rect");
+			cursor.className = "cursor";
+			if (activeMenuLink) {
+				activeMenuLink.classList.remove("is-highlighted");
+				activeMenuLink = null;
+			}
 		}
 	});
 });

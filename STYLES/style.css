@@ -1,9 +1,11 @@
 /* ---------- Base ---------- */
 html {
 	font-size: 62.5%;
-	/* 1rem = 10px */
 }
 
+/* 1rem = 10px */
+
+html,
 body {
 	background: #000;
 	color: #33ff66;
@@ -11,9 +13,10 @@ body {
 	text-shadow: 0 0 2px #33ff66;
 	margin: 0;
 	padding: 0;
+	cursor: none !important;
+	/* masque toujours le pointeur natif */
 }
 
-/* Container */
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
@@ -38,7 +41,6 @@ h1 {
 
 .intro {
 	color: #aaa;
-	/* gris clair au lieu de #555 */
 	font-size: 1.8rem;
 }
 
@@ -50,19 +52,35 @@ nav.menu {
 	padding: 0.8rem;
 }
 
+nav.menu,
+nav.menu * {
+	cursor: none !important;
+	/* pas de pointeur système dans le menu */
+}
+
 nav.menu a {
 	color: #33ff66;
 	text-decoration: none;
 	margin: 0 1rem;
 	font-size: 1.6rem;
-	transition: all 0.2s ease;
+	transition: color .2s ease, text-shadow .2s ease;
 }
 
+/* Lien actif sous le curseur (classe ajoutée par le JS) */
+nav.menu a.is-highlighted {
+	background-color: #33ff66 !important;
+	color: #000 !important;
+	text-shadow: none !important;
+	border-radius: 0px;
+	box-shadow: 0 0 12px #33ff66;
+	padding: 0 4px;
+}
+
+/* Neutraliser le hover classique */
 nav.menu a:hover {
-	background-color: #33ff66;
-	color: #000;
-	transform: translateY(-4px);
-	box-shadow: 0 0 10px #33ff66;
+	background: none;
+	box-shadow: none;
+	transform: none;
 }
 
 /* ---------- Grid ---------- */
@@ -73,7 +91,7 @@ nav.menu a:hover {
 	margin: 4rem 0;
 }
 
-/* ---------- Cards  ---------- */
+/* ---------- Cards ---------- */
 .card {
 	display: flex;
 	align-items: center;
@@ -107,7 +125,8 @@ footer {
 	border-top: 1px solid #33ff66;
 	margin-top: 4rem;
 }
-/* Typewritter */
+
+/* ---------- Typewriter ---------- */
 .typewriter {
 	font-size: 2rem;
 	color: #33ff66;
@@ -124,13 +143,7 @@ footer {
 	transition: all 0.2s ease;
 }
 
-/* CURSEUR */
-/* masque le curseur natif */
-body {
-	cursor: none;
-}
-
-/* curseur par défaut = rond fluo, sans transition sur left/top */
+/* ---------- Curseur custom ---------- */
 .cursor {
 	position: fixed;
 	top: 0;
@@ -143,28 +156,36 @@ body {
 	pointer-events: none;
 	mix-blend-mode: difference;
 	transform: translate(-50%, -50%);
-	/* ne pas animer left/top -> pas de “latence” */
 	transition:
 		width .18s ease,
 		height .18s ease,
 		border-radius .18s ease,
-		background .18s ease;
-		box-shadow .18s ease,
-		border-color .18s ease;
+		background-color .18s ease,
+		box-shadow .18s ease;
 	z-index: 9999;
 }
 
-/* petit pointeur quand on est au-dessus du menu */
 .cursor.small {
-	width: 6px;
-	height: 6px;
+	width: 10px;
+	height: 10px;
 	box-shadow: 0 0 3px #33ff66, 0 0 6px #33ff66;
 }
 
-/* mode "rectangle qui encadre" */
+/* Halo autour d’un lien du menu */
 .cursor.rect {
-	border-radius: 4px;
+	border-radius: 1px;
+	background: transparent !important;
+	border: none;
+	box-shadow: 0 0 0px #33ff66;
+	mix-blend-mode: normal !important;
+	/* important : évite l'inversion de couleur */
+}
+
+/* Rectangle vide autour des mots des citations */
+.cursor.word-rect {
+	border-radius: 3px;
 	background: transparent;
 	border: 2px solid #33ff66;
-	box-shadow: 0 0 12px #33ff66;
+	box-shadow: 0 0 10px #33ff66;
+	mix-blend-mode: normal;
 }
