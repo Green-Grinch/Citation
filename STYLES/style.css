@@ -14,7 +14,7 @@ body {
 	margin: 0;
 	padding: 0;
 	cursor: none !important;
-	/* masque toujours le pointeur natif */
+	
 }
 
 .container {
@@ -93,6 +93,7 @@ nav.menu a:hover {
 
 /* ---------- Cards ---------- */
 .card {
+	cursor: none !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -148,8 +149,8 @@ footer {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 16px;
-	height: 16px;
+	width: 32px;
+	height: 32px;
 	border-radius: 50%;
 	background: #33ff66;
 	box-shadow: 0 0 8px #33ff66, 0 0 16px #33ff66;
@@ -157,11 +158,11 @@ footer {
 	mix-blend-mode: difference;
 	transform: translate(-50%, -50%);
 	transition:
-		width .18s ease,
-		height .18s ease,
-		border-radius .18s ease,
-		background-color .18s ease,
-		box-shadow .18s ease;
+	width .18s ease,
+	height .18s ease,
+	border-radius .18s ease,
+	background-color .18s ease,
+	box-shadow .18s ease;
 	z-index: 9999;
 }
 
