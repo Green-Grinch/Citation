@@ -64,6 +64,9 @@ nav.menu a {
 	margin: 0 1rem;
 	font-size: 1.6rem;
 	transition: color .2s ease, text-shadow .2s ease;
+	display: flex;
+		justify-content: left;
+	
 }
 
 /* Lien actif sous le curseur (classe ajoutée par le JS) */
