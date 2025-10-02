@@ -57,19 +57,6 @@ nav.menu {
 
 /* MENU DE NAVIGATION */
 
-nav.menu a .desc {
-	position: absolute;
-	left: 0;
-	top: 100%;
-	font-size: 1.2rem;
-	color: #000;
-	text-shadow: none;
-	pointer-events: none;
-	transition: color .2s ease;
-}
-
-
-	
 
 nav.menu a {
 	position: relative;
@@ -81,7 +68,22 @@ nav.menu a {
 	transition: color .2s ease, text-shadow .2s ease;
 	display: flex;
 	justify-content: left;
-	
+
+}
+
+nav.menu a .desc {
+	position: absolute;
+	left: 100%;
+	/* se met à droite du texte principal */
+	top: 0;
+	/* aligné verticalement */
+	margin-left: .5rem;
+	/* petit espace */
+	font-size: 1.2rem;
+	color: #000;
+	text-shadow: none !important;
+	pointer-events: none;
+	transition: color .2s ease;
 }
 
 nav.menu a.is-highlighted {
