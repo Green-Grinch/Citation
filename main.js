@@ -157,3 +157,5 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
+
+// faire un fichier externe nav js

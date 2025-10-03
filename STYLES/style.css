@@ -208,3 +208,22 @@ footer {
 	box-shadow: 0 0 10px #33ff66;
 	mix-blend-mode: normal;
 }
+
+
+
+
+/* LABEL MENU */
+
+
+.label { 
+	/* outline: 2px solid pink; */
+	display:none;
+	width: 100%;
+	text-align: center;
+	}
+	
+
+a:hover  .label { 
+	display: initial ;
+	justify-content: flex-end;
+}
