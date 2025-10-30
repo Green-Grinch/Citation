@@ -117,7 +117,7 @@ nav.menu a:hover {
 	justify-content: center;
 	background-color: #111;
 	border: 1px solid #33ff66;
-	border-radius: 0.5rem;
+	border-radius: 0rem;
 	padding: 2.5rem 1.5rem;
 	font-size: 1.8rem;
 	font-weight: 600;
@@ -171,7 +171,7 @@ footer {
 	height: 32px;
 	border-radius: 50%;
 	background: #33ff66;
-	box-shadow: 0 0 8px #33ff66, 0 0 16px #33ff66;
+	box-shadow: 0 0 10px #33ff66, 0 0 16px #33ff66;
 	pointer-events: none;
 	mix-blend-mode: difference;
 	transform: translate(-50%, -50%);
