@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const pointInRect = (x, y, r) =>
 		x >= r.left && x <= r.left + r.width && y >= r.top && y <= r.top + r.height;
 
-	const isWordChar = ch => !!ch && /[^\s“”"«»'’.,;:!?()[\]{}]/.test(ch);
+	
 
 	function spanAtPoint(x, y) {
 		const el = document.elementFromPoint(x, y);
