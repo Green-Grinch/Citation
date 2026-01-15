@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=Rubik+Glitch&family=Rubik+Wet+Paint&family=Rubik+Broken+Fax&family=Monoton&family=Black+Ops+One&family=Bungee&family=Bungee+Shade&family=Orbitron:wght@400;700&family=Audiowide&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=UnifrakturCook:wght@700&family=Creepster&family=Nosifer&family=Anton&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 /* ---------- Base ---------- */
 html {
 	font-size: 62.5%;
@@ -13,8 +13,8 @@ body {
 	color: #33ff66;
 	font-family: "VT323", monospace;
 	text-shadow: 0 0 2px #33ff66;
-	margin: 0;
-	padding: 0;
+	/* margin: 0;
+	padding: 0; */
 	cursor: none !important;
 	
 }
@@ -32,7 +32,7 @@ header {
 }
 
 h1 {
-	font-size: 4.8rem;
+	font-size: 300%;
 	font-weight: 700;
 	color: #33ff66;
 	border-bottom: 2px solid #33ff66;
@@ -135,7 +135,7 @@ nav.menu a.is-highlighted {
 	box-shadow: 0 0 10px #33ff66;
 }
 
-/* ---------- Footer ---------- */
+/* Footer, j'avais mis ça au début mais si je le supprime mon titre est cassé */
 footer {
 	text-align: center;
 	font-size: 1.4rem;
@@ -145,7 +145,7 @@ footer {
 	margin-top: 4rem;
 }
 
-/* ---------- Typewriter ---------- */
+/* Typewriter, copie d'un site sur git */
 .typewriter {
 	font-size: 2rem;
 	color: #33ff66;
@@ -190,7 +190,7 @@ footer {
 	box-shadow: 0 0 3px #33ff66, 0 0 6px #33ff66;
 }
 
-/* Halo autour d’un lien du menu */
+
 .cursor.rect {
 	border-radius: 1px;
 	background: transparent !important;
@@ -200,7 +200,6 @@ footer {
 	/* important : évite l'inversion de couleur */
 }
 
-/* Rectangle vide autour des mots des citations */
 .cursor.word-rect {
 	border-radius: 3px;
 	background: transparent;
@@ -287,7 +286,7 @@ body.citation-14 {
 }
 
 body.citation-15 {
-	font-family: "Nosifer", system-ui;
+	font-family: "Cherry Bomb One", system-ui, sans-serif;
 }
 
 body.citation-16 {
