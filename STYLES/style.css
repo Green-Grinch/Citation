@@ -25,7 +25,7 @@ body {
 	padding: 2rem;
 }
 
-/* ---------- Header ---------- */
+/*  Header */
 header {
 	text-align: center;
 	margin: 4rem 0;
@@ -46,7 +46,7 @@ h1 {
 	font-size: 1.8rem;
 }
 
-/* ---------- Navigation ---------- */
+/* Navigation */
 nav.menu {
 	cursor: none !important;
 	background: #111;
@@ -101,7 +101,7 @@ nav.menu a.is-highlighted {
 
 
 
-/* ---------- Grid ---------- */
+/*  Grid */
 .grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -109,7 +109,7 @@ nav.menu a.is-highlighted {
 	margin: 4rem 0;
 }
 
-/* ---------- Cards ---------- */
+/* Cards */
 .card {
 	cursor: none !important;
 	display: flex;
@@ -197,7 +197,7 @@ footer {
 	border: none;
 	box-shadow: 0 0 0px #33ff66;
 	mix-blend-mode: normal !important;
-	/* important : évite l'inversion de couleur */
+	/* important : évite l'inversion de couleur  pas toucher*/
 }
 
 .cursor.word-rect {
