@@ -57,7 +57,11 @@ nav.menu {
 }
 
 
-/* MENU DE NAVIGATION */
+/* MENU*/
+nav.menu,
+nav.menu * {
+	cursor: none !important;
+}
 
 
 nav.menu a {
@@ -72,6 +76,7 @@ nav.menu a {
 	justify-content: left;
 
 }
+
 
 nav.menu a .desc {
 	position: absolute;
@@ -94,11 +99,7 @@ nav.menu a.is-highlighted {
 	padding: 0 4px;
 }
 
-nav.menu a:hover {
-	background: none;
-	box-shadow: none;
-	transform: none;
-}
+
 
 /* ---------- Grid ---------- */
 .grid {
@@ -228,10 +229,6 @@ a:hover  .label {
 }
 
 /* It's 2 am, I want to sleep help */
-
-body.citation-01 {
-	font-family: "VT323", monospace;
-}
 
 body.citation-01 {
 	font-family: "VT323", monospace;

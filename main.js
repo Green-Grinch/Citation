@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function setCursorRect(rect, mode = "rect") {
 		rectMode = true;
-		cursor.className = "cursor " + mode; // applique .rect ou .word-rect
+		cursor.className = "cursor " + mode;
 		cursor.style.width = (rect.width + PAD_X * 2) + "px";
 		cursor.style.height = (rect.height + PAD_Y * 2) + "px";
 		cursor.style.left = (rect.left + rect.width / 2) + "px";
@@ -71,7 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	const pointInRect = (x, y, r) =>
 		x >= r.left && x <= r.left + r.width && y >= r.top && y <= r.top + r.height;
 
-	
+	// ✅ AJOUT : manquait dans votre code, sinon crash et plus d'effets
+	function isWordChar(ch) {
+		if (!ch) return false;
+		return /[0-9A-Za-zÀ-ÖØ-öø-ÿ_’'-]/.test(ch);
+	}
 
 	function spanAtPoint(x, y) {
 		const el = document.elementFromPoint(x, y);
@@ -89,14 +93,25 @@ document.addEventListener("DOMContentLoaded", () => {
 	function wordRectFromSpan(span) {
 		if (!span || span.tagName !== "SPAN" || !isWordChar(span.textContent)) return null;
 		let start = span, end = span;
-		while (start.previousSibling && start.previousSibling.nodeType === 1 &&
-			start.previousSibling.tagName === "SPAN" && isWordChar(start.previousSibling.textContent)) {
+
+		while (
+			start.previousSibling &&
+			start.previousSibling.nodeType === 1 &&
+			start.previousSibling.tagName === "SPAN" &&
+			isWordChar(start.previousSibling.textContent)
+		) {
 			start = start.previousSibling;
 		}
-		while (end.nextSibling && end.nextSibling.nodeType === 1 &&
-			end.nextSibling.tagName === "SPAN" && isWordChar(end.nextSibling.textContent)) {
+
+		while (
+			end.nextSibling &&
+			end.nextSibling.nodeType === 1 &&
+			end.nextSibling.tagName === "SPAN" &&
+			isWordChar(end.nextSibling.textContent)
+		) {
 			end = end.nextSibling;
 		}
+
 		const r1 = start.getBoundingClientRect();
 		const r2 = end.getBoundingClientRect();
 		const top = Math.min(r1.top, r2.top);
@@ -120,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				activeMenuLink.classList.add("is-highlighted");
 			}
 			const r = menuLink.getBoundingClientRect();
-			setCursorRect(r, "rect"); // halo
+			setCursorRect(r, "rect");
 			return;
 		} else if (activeMenuLink) {
 			activeMenuLink.classList.remove("is-highlighted");
@@ -132,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (s && s.parentElement && s.parentElement.classList.contains("typewriter")) {
 			const wr = wordRectFromSpan(s);
 			if (wr && pointInRect(x, y, wr)) {
-				setCursorRect(wr, "word-rect"); // contour vert vide
+				setCursorRect(wr, "word-rect");
 				return;
 			}
 		}
@@ -142,7 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	document.addEventListener("mousemove", e => {
-		lastX = e.clientX; lastY = e.clientY;
+		lastX = e.clientX;
+		lastY = e.clientY;
 		if (!rafId) rafId = requestAnimationFrame(processMouse);
 	});
 
